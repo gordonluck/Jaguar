@@ -1,0 +1,32 @@
+html
+    head
+        +h.headers
+        +h.load('/template/style.scss')
+        title= post.title + " - " + site.title
+    body
+        .surface-content
+            header(class='home-header blog-background banner-mask')
+                div(class='nav-header container')
+                    div.nav-header-container: a(href='/')= 'home'
+                .header-wrap
+                    .container
+                        .post-info-container
+                            h2.post-page-title= post.title
+                            time.post-page-time= post.date.format('%m %d, %Y')
+                            span.middotDivider
+                            span.post-page-author= site.configs.admin_name
+                            
+
+            main.main-content
+                section(class='content-area container')
+                    .site-content
+                        div(class="single-post-inner grap")= post.content
+                    
+                    if post.metadata.comment not in ['no', 'No', False]
+                        div.comments-area
+                            +post.comments_as_html()
+
+                
+
+            footer(class='site-footer clearfix u-textAlignCenter')
+                 a <a href="https://fatesinger.com" target="_blank">bigfa</a> theme. 
