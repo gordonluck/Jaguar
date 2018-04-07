@@ -5,22 +5,43 @@ html
         title= post.title + " - " + site.title
     body
         .surface-content
-            header(class='home-header blog-background banner-mask')
-                div(class='nav-header container')
-                    div.nav-header-container: a(href='/')= 'home'
-                .header-wrap
-                    .container
-                        .post-info-container
-                            h2.post-page-title= post.title
-                            time.post-page-time= post.date.format('%m %d, %Y')
-                            span.middotDivider
-                            span.post-page-author= site.configs.admin_name
-                            
+            if ( post.cover )
+                header(class='home-header blog-background banner-mask',style='background-image:url({{post.cover}})')
+                    div(class='nav-header container')
+                        div.nav-header-container: a(href='/')= 'home'
+                    .header-wrap
+                        .container
+                            div(class='post-info-container u-textAlignLeft')
+                                h2.post-page-title= post.title
+                                time.post-page-time= post.date.format('%m %d, %Y')
+                                span.middotDivider
+                                span.post-page-author= site.configs.admin_name
+            else 
+                header(class='home-header blog-background banner-mask',style='background-image:url({{post.cover}})')
+                    div(class='nav-header container')
+                        div.nav-header-container: a(href='/')= 'home'
+                    .header-wrap
+                        .container
+                            div(class='post-info-container u-textAlignLeft')
+                                h2.post-page-title= post.title
+                                time.post-page-time= post.date.format('%m %d, %Y')
+                                span.middotDivider
+                                span.post-page-author= site.configs.admin_name
 
             main.main-content
                 section(class='content-area container')
                     .site-content
                         div(class="single-post-inner grap")= post.content
+
+                    if post.tags
+                        .tag-list
+                            for tag in post.tags
+                                a(href='/tag/{{tag}}')= tag
+
+                    div(class='author-field u-textAlignCenter')
+                        img(class='avatar',width=64,src=site.avatar)
+                        h3= site.configs.admin_name
+                        p= 'your description'
                     
                     if post.metadata.comment not in ['no', 'No', False]
                         div.comments-area
@@ -29,4 +50,4 @@ html
                 
 
             footer(class='site-footer clearfix u-textAlignCenter')
-                 a <a href="https://fatesinger.com" target="_blank">bigfa</a> theme. 
+                 | just a <a href="https://fatesinger.com" target="_blank">bigfa</a> theme. 
